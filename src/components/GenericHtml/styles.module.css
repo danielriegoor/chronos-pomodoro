@@ -1,0 +1,48 @@
+.generic html h1 {
+  font-size: 3.2rem;
+  margin-bottom: 1.6rem;
+}
+
+.genericHtml h2 {
+  font-size: 2.4rem;
+  margin-bottom: 1.2rem;
+}
+
+.genericHtml h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.genericHtml p {
+  font-size: 1.6rem;
+  line-height: 1.6rem;
+  margin-bottom: 1rem;
+}
+
+.genericHtml a {
+  color: var(--link-color);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.genericHtml a:hover {
+  text-decoration: underline;
+}
+
+.genericHtml ul {
+  list-style-type: disc;
+  padding-left: 2.4rem;
+}
+
+.genericHtml li {
+  margin-bottom: 0.8rem;
+}
+
+.genericHtml img {
+  max-width: 100%;
+  height: auto;
+  margin: 1.6rem 0;
+  border-radius: 0.8rem;
+  box-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.1);
+  margin: 1.6rem 0;
+}
