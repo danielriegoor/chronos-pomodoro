@@ -6,6 +6,6 @@ export type TaskModel = {
   duration: number;
   startDate: number;
   completeDate: number | null; // Quando o timer chega ao final = number - Se for parado antes pelo usuário = Null
-  interruptedDate: number | null; // Quando a task for interrompida
+  interruptDate: number | null; // Quando a task for interrompida
   type: keyof TaskStateModel['config']; // 'workTime' | 'shortBreakTime' | 'longBreakTime'
 };
