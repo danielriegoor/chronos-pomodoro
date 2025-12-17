@@ -8,14 +8,15 @@ import { useTaskContext } from '../../contexts/TaskContext/useTaskContext';
 import { getNextCycle } from '../../utils/getNextCycle';
 import { getNextCycleType } from '../../utils/getNextCycleType';
 import { TaskActionTypes } from '../../contexts/TaskContext/taskActions';
+import { Tips } from '../Tips';
 
 export function MainForm() {
   const { state, dispatch } = useTaskContext();
   const taskNameInput = useRef<HTMLInputElement>(null);
 
-  // Ciclos
+  // ciclos
   const nextCycle = getNextCycle(state.currentCycle);
-  const nextCycleType = getNextCycleType(nextCycle);
+  const nextCyleType = getNextCycleType(nextCycle);
 
   function handleCreateNewTask(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -35,8 +36,8 @@ export function MainForm() {
       startDate: Date.now(),
       completeDate: null,
       interruptDate: null,
-      duration: state.config[nextCycleType],
-      type: nextCycleType,
+      duration: state.config[nextCyleType],
+      type: nextCyleType,
     };
 
     dispatch({ type: TaskActionTypes.START_TASK, payload: newTask });
@@ -60,13 +61,15 @@ export function MainForm() {
       </div>
 
       <div className='formRow'>
-        <p>Próximo intervalo é de 25min</p>
+        <Tips />
       </div>
+
       {state.currentCycle > 0 && (
         <div className='formRow'>
           <Cycles />
         </div>
       )}
+
       <div className='formRow'>
         {!state.activeTask && (
           <DefaultButton
@@ -74,9 +77,10 @@ export function MainForm() {
             title='Iniciar nova tarefa'
             type='submit'
             icon={<PlayCircleIcon />}
-            key='botao_submit' // Resolver reuso de botão - Solução 1
+            key='botao_submit'
           />
-        )}{' '}
+        )}
+
         {!!state.activeTask && (
           <DefaultButton
             aria-label='Interromper tarefa atual'
@@ -85,7 +89,7 @@ export function MainForm() {
             color='red'
             icon={<StopCircleIcon />}
             onClick={handleInterruptTask}
-            key='botao_button' // Resolver reuso de botão - Solução 1
+            key='botao_button'
           />
         )}
       </div>
