@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router';
 import { Home } from '../../pages/Home';
 import { NotFound } from '../../pages/NotFound';
+import { History } from '../../pages/History';
 import { AboutPomodoro } from '../../pages/AboutPomodoro';
 import { useEffect } from 'react';
 
@@ -19,6 +20,7 @@ export function MainRouter() {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/about-pomodoro/' element={<AboutPomodoro />} />
+        <Route path='/history/' element={<History />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
       <ScrollToTop />
