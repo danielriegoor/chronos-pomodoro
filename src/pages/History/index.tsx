@@ -40,6 +40,7 @@ export function History() {
     }));
   }, [state.tasks]);
   useEffect(() => {
+    document.title = 'Histórico de tasks - Chronos Pomodoro';
     if (!confirmClearHistory) return;
 
     setConfirmClearHistory(false);

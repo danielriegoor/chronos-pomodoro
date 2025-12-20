@@ -6,8 +6,62 @@ import { DefaultButton } from '../../components/DefaultButton';
 import { DefaultInput } from '../../components/DefaultInput';
 import { Heading } from '../../components/Heading';
 import { MainTemplate } from '../../templates/MainTemplate';
+import { useRef, useEffect } from 'react';
+import { showMessage } from '../../adapters/showMessage';
+import { useTaskContext } from '../../contexts/TaskContext/useTaskContext';
+import { TaskActionTypes } from '../../contexts/TaskContext/taskActions';
 
 export function Settings() {
+  const { state, dispatch } = useTaskContext();
+  const workTimeInput = useRef<HTMLInputElement>(null);
+  const shortBreakTimeInput = useRef<HTMLInputElement>(null);
+  const longBreakTimeInput = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    document.title = 'Configurações de ciclos - Chronos Pomodoro';
+    return () => {
+      showMessage.dismiss();
+    };
+  }, []);
+
+  function handleSaveSettings(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    const formErrors = [];
+
+    const workTime = Number(workTimeInput.current?.value);
+    const shortBreakTime = Number(shortBreakTimeInput.current?.value);
+    const longBreakTime = Number(longBreakTimeInput.current?.value);
+
+    if (isNaN(workTime) || isNaN(shortBreakTime) || isNaN(longBreakTime)) {
+      formErrors.push('Utilize apenas números para QUALQUER campo.');
+    }
+
+    if (workTime < 1 || workTime > 99) {
+      formErrors.push('Digite valores entre 1 e 99 para o ciclo de foco.');
+    }
+    if (shortBreakTime < 1 || shortBreakTime > 30) {
+      formErrors.push(
+        'Digite valores entre 1 e 30 para o ciclo de pausa curta.',
+      );
+    }
+    if (longBreakTime < 15 || longBreakTime > 60) {
+      formErrors.push(
+        'Digite valores entre 15 e 60 para o ciclo de pausa longa.',
+      );
+    }
+    if (formErrors.length > 0) {
+      formErrors.forEach(error => {
+        showMessage.error(error);
+      });
+      return;
+    }
+    dispatch({
+      type: TaskActionTypes.CHANGE_SETTINGS,
+      payload: { workTime, shortBreakTime, longBreakTime },
+    });
+    showMessage.success('Configurações salvas com sucesso!');
+  }
+
   return (
     <MainTemplate>
       <Container>
@@ -15,25 +69,40 @@ export function Settings() {
       </Container>
       <Container>
         <p style={{ textAlign: 'center' }}>
-          Modifique as configurações para tempo de foco, descanso curto e
-          descanso longo.
+          Personalize suas configurações para tempo de foco, pausa curta e pausa
+          longa.
         </p>
       </Container>
 
       <Container>
-        <form action='' className='form'>
+        <form onSubmit={handleSaveSettings} action='' className='form'>
           <div className='formRow'>
-            <DefaultInput id='workTime' labelText='Foco' />
+            <DefaultInput
+              id='workTime'
+              labelText='Foco'
+              ref={workTimeInput}
+              defaultValue={state.config.workTime}
+              type='number'
+            />
           </div>
           <div className='formRow'>
-            <DefaultInput id='shortBreakTime' labelText='Pausa curta' />
+            <DefaultInput
+              id='shortBreakTime'
+              labelText='Pausa curta'
+              ref={shortBreakTimeInput}
+              defaultValue={state.config.shortBreakTime}
+              type='number'
+            />
           </div>
           <div className='formRow'>
             <DefaultInput
               id='longBreakTime'
               labelText='Pausa longa'
-              aria-label='Salvar configurações'
-              title='alvar configurações'
+              aria-label='Pausa longa'
+              title='Pausa longa'
+              ref={longBreakTimeInput}
+              defaultValue={state.config.longBreakTime}
+              type='number'
             />
           </div>
           <div className='formRow'>

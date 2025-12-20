@@ -14,15 +14,25 @@ export function Tips() {
     shortBreakTime: (
       <span>Descanse por {state.config.shortBreakTime} min.</span>
     ),
-    longBreakTime: <span> Pausa longa. </span>,
+    longBreakTime: (
+      <span> Pausa longa. Descanse por {state.config.longBreakTime} min. </span>
+    ),
   };
 
   const tipsForNoActiveTask = {
-    workTime: <span>Próximo ciclo é de {state.config.workTime} min.</span>,
-    shortBreakTime: (
-      <span>A próxima pausa é de {state.config.shortBreakTime} min.</span>
+    workTime: (
+      <span>Próximo ciclo é foco e será de {state.config.workTime} min.</span>
     ),
-    longBreakTime: <span>Próximo ciclo é pausa longa de 15 min.</span>,
+    shortBreakTime: (
+      <span>
+        Próximo ciclo é pausa curta e será de {state.config.shortBreakTime} min.
+      </span>
+    ),
+    longBreakTime: (
+      <span>
+        Próximo ciclo é pausa longa e será de {state.config.longBreakTime} min.
+      </span>
+    ),
   };
   return (
     <>

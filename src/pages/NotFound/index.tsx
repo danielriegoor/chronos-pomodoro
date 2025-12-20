@@ -1,12 +1,20 @@
 // PascalCase para componentes React
 
+import { useEffect } from 'react';
 import { Container } from '../../components/Container';
 import { GenericHtml } from '../../components/GenericHtml';
 import { Heading } from '../../components/Heading';
 import { RouterLink } from '../../components/RouterLink';
 import { MainTemplate } from '../../templates/MainTemplate';
+import { showMessage } from '../../adapters/showMessage';
 
 export function NotFound() {
+  useEffect(() => {
+    document.title = '404 - Ops! Página não encontrada! - Chronos Pomodoro';
+    return () => {
+      showMessage.dismiss();
+    };
+  }, []);
   return (
     <MainTemplate>
       <Container>

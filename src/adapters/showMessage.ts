@@ -2,7 +2,7 @@ import { toast } from 'react-toastify';
 import { Dialog } from '../components/Dialog';
 
 export const showMessage = {
-  sucess: (msg: string) => toast.success(msg),
+  success: (msg: string) => toast.success(msg),
   error: (msg: string) => toast.error(msg),
   warn: (msg: string) => toast.warn(msg),
   warning: (msg: string) => toast.warning(msg),

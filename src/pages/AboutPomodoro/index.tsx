@@ -4,8 +4,16 @@ import { Container } from '../../components/Container';
 import { GenericHtml } from '../../components/GenericHtml';
 import { Heading } from '../../components/Heading';
 import { MainTemplate } from '../../templates/MainTemplate';
+import { useEffect } from 'react';
+import { showMessage } from '../../adapters/showMessage';
 
 export function AboutPomodoro() {
+  useEffect(() => {
+    document.title = 'Entenda a técnica de pomodoro. - Chronos Pomodoro';
+    return () => {
+      showMessage.dismiss();
+    };
+  }, []);
   return (
     <MainTemplate>
       <Container>
